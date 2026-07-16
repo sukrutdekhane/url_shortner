@@ -23,6 +23,5 @@ SessionLocal = sessionmaker(
     autocommit=False
 )
 
-
 class Base(DeclarativeBase):
     pass
