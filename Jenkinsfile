@@ -26,6 +26,8 @@
 
 pipeline {
     agent any
+
+    stages {
         stage('Run FastAPI Application') {
             steps {
                 withCredentials([file(credentialsId: 'dotenv', variable: 'ENV_FILE')]) {
