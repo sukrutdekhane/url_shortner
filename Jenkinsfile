@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                echo 'Check poetry version'
+                sh 'poetry --version'
             }
         }
         stage('Test') {
