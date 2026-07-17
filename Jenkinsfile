@@ -12,7 +12,7 @@ pipeline {
         stage('Activate the virtual environment') {
             steps {
                 echo 'Activating virtual environment...'
-                sh 'poetry shell'
+                sh 'poetry env activate'
                 sh 'fastapi dev src/main.py'
             }
         }
