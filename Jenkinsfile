@@ -9,9 +9,11 @@ pipeline {
                 sh 'python3 --version'
             }
         }
-        stage('Test') {
+        stage('Activate the virtual environment') {
             steps {
-                echo 'Testing..'
+                echo 'Activating virtual environment...'
+                sh 'poetry shell'
+                sh 'fastapi dev src/main.py'
             }
         }
         stage('Deploy') {
