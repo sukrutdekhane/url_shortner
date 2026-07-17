@@ -12,7 +12,7 @@ pipeline {
         stage('Activate the virtual environment') {
             steps {
                 echo 'Activating virtual environment...'
-                sh 'poetry list'
+                sh 'poetry show'
                 sh 'poetry run python -m fastapi dev src/main.py'
             }
         }
