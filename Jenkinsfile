@@ -26,15 +26,6 @@
 
 pipeline {
     agent any
-
-    stages {
-        stage('Checkout') {
-            steps {
-                // Pull code from your repository
-                checkout scm
-            }
-        }
-
         stage('Run FastAPI Application') {
             steps {
                 withCredentials([file(credentialsId: 'dotenv', variable: 'ENV_FILE')]) {
