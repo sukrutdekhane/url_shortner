@@ -37,11 +37,12 @@ pipeline {
 
         stage('Run FastAPI Application') {
             steps {
-                // Run the server in the background so Jenkins doesn't hang indefinitely
-                sh '''
-                poetry install --no-root
-                poetry run python -m fastapi dev src/main.py
-                '''
+                withCredentials([file(credentialsId: 'dotenv', variable: 'ENV_FILE')]) {
+                    sh '''
+                        cp "$ENV_FILE" .env
+                        poetry run fastapi dev src/main.py
+                    '''
+                }
             }
         }
     }
