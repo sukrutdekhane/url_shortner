@@ -38,8 +38,10 @@ pipeline {
         stage('Run FastAPI Application') {
             steps {
                 // Run the server in the background so Jenkins doesn't hang indefinitely
-                sh 'poetry show fastapi'
-                sh 'poetry run python -m fastapi dev src/main.py'
+                sh '''
+                poetry install
+                poetry run python -m fastapi dev src/main.py
+                '''
             }
         }
     }
