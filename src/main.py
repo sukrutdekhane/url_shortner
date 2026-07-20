@@ -1,23 +1,15 @@
-from contextlib import asynccontextmanager
-
 from fastapi import FastAPI
 
+from src.controller.url_controller import router
 from src.core.database import Base, engine
 
-# Import all entities
+# Import entity so SQLAlchemy registers it
 from src.entity.url_mapping import UrlMapping
 
+Base.metadata.create_all(bind=engine)
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    print("Starting application...")
+app = FastAPI(
+    title="URL Shortener API"
+)
 
-    # Create tables
-    Base.metadata.create_all(bind=engine)
-
-    yield
-
-    print("Stopping application...")
-
-
-app = FastAPI(lifespan=lifespan)
+app.include_router(router)

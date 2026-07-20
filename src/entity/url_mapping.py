@@ -1,11 +1,5 @@
-from datetime import datetime
-
-from sqlalchemy import BigInteger
-from sqlalchemy import String
-from sqlalchemy import Text
-
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
+from sqlalchemy import BigInteger, String, Text
+from sqlalchemy.orm import Mapped, mapped_column
 
 from src.core.database import Base
 
