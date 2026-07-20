@@ -1,6 +1,7 @@
 from src.dto.url_response import UrlResponse
 from src.entity.url_mapping import UrlMapping
 from src.repository.url_repository import UrlRepository
+from src.util.base_62_encoding import generate_short_code
 
 
 class UrlService:
@@ -10,8 +11,7 @@ class UrlService:
 
     def create_short_url(self, long_url: str):
 
-        # Replace this with your Base62 logic later
-        short_code = "AbC123"
+        short_code = generate_short_code()
 
         url_mapping = UrlMapping(
             short_code=short_code,
