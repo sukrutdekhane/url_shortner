@@ -19,5 +19,4 @@ async def lifespan(app: FastAPI):
 
     print("Stopping application...")
 
-
 app = FastAPI(lifespan=lifespan)
