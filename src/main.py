@@ -4,9 +4,6 @@ from fastapi import FastAPI
 
 from src.core.database import Base, engine
 
-# Import all entities
-from src.entity.url_mapping import UrlMapping
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
