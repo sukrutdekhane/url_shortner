@@ -1,20 +1,10 @@
-from contextlib import asynccontextmanager
-
 from fastapi import FastAPI
 
-from src.core.database import Base, engine
+from src.controller.url_controller import router as url_router
 
+app = FastAPI(
+    title="URL Shortener",
+    version="1.0.0"
+)
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    print("Starting application...")
-
-    # Create tables
-    Base.metadata.create_all(bind=engine)
-
-    yield
-
-    print("Stopping application...")
-
-
-app = FastAPI(lifespan=lifespan)
+app.include_router(url_router)
