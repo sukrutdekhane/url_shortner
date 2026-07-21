@@ -18,6 +18,8 @@ def shorten_url(request: UrlRequest):
         service = UrlService(repository)
 
         return service.create_short_url(request.long_url)
+    except ValueError as e:
+        print(f"Error: {e}")
 
     finally:
         db.close()

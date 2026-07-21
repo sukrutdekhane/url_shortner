@@ -14,3 +14,6 @@ class UrlRepository:
         self.db.refresh(url_mapping)
 
         return url_mapping
+    
+    def check_long_url_exists(self, long_url: str) -> bool:
+        return self.db.query(UrlMapping).filter(UrlMapping.long_url == long_url).first() is not None

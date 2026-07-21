@@ -10,7 +10,9 @@ class UrlService:
         self.repository = repository
 
     def create_short_url(self, long_url: str):
-
+        if self.repository.check_long_url_exists(long_url):
+            raise ValueError("Long URL already exists in the database.")
+        
         short_code = generate_short_code()
 
         url_mapping = UrlMapping(
