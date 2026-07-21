@@ -14,7 +14,7 @@ class UrlService:
             raise ValueError("Long URL already exists in the database.")
         
         short_code = generate_short_code()
-        
+
         while True:            
             if self.repository.check_short_code_exists(short_code):
                 short_code = generate_short_code()
@@ -27,8 +27,4 @@ class UrlService:
             click_count=0,
         )
 
-        saved = self.repository.save(url_mapping)
-
-        return UrlResponse(
-            short_url=f"http://localhost:8000/{saved.short_code}"
-        )
+        self.repository.save(url_mapping)
