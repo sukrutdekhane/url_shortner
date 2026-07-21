@@ -13,8 +13,9 @@ class UrlService:
         if self.repository.check_long_url_exists(long_url):
             raise ValueError("Long URL already exists in the database.")
         
-        while True:
-            short_code = generate_short_code()
+        short_code = generate_short_code()
+        
+        while True:            
             if self.repository.check_short_code_exists(short_code):
                 short_code = generate_short_code()
             else:
