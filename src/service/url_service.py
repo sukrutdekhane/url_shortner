@@ -22,5 +22,16 @@ class UrlService:
         saved = self.repository.save(url_mapping)
 
         return UrlResponse(
-            short_url=f"http://localhost:8000/{saved.short_code}"
+            long_url=f"{saved.short_code}"
         )
+    
+    def get_long_url(self, short_code: str) -> UrlResponse:
+        try:
+            url_mapping = self.repository.get_url_mapping_by_short_code(short_code)
+
+            if url_mapping is None:
+                raise Exception(status_code=404, detail="Short URL not found")
+        except Exception as e:
+            raise Exception(f"Error occurred while fetching URL mapping: {e}")
+
+        return UrlResponse(long_url=url_mapping.long_url)
