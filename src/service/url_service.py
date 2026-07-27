@@ -29,8 +29,6 @@ class UrlService:
         try:
             url_mapping = self.repository.get_url_mapping_by_short_code(short_code)
 
-            if url_mapping is None:
-                raise Exception(status_code=404, detail="Short URL not found")
         except Exception as e:
             raise Exception(f"Error occurred while fetching URL mapping: {e}")
 
