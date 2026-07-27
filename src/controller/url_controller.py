@@ -2,7 +2,6 @@ from fastapi import APIRouter
 
 from src.core.database import SessionLocal
 from src.dto.url_request import UrlRequest
-from src.dto.url_response import UrlResponse
 from src.repository.url_repository import UrlRepository
 from src.service.url_service import UrlService
 from fastapi.responses import RedirectResponse
