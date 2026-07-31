@@ -38,3 +38,17 @@ class UrlRepository:
         except Exception as e:
             print(f"Error occurred while fetching URL mapping: {e}")
             raise
+    
+    def check_long_url_exists(self, long_url: str) -> UrlMapping:
+        try:
+            url_mapping = (
+                self.db.query(UrlMapping)
+                .filter(UrlMapping.long_url == long_url)
+                .first()
+            )
+            
+            return url_mapping
+
+        except Exception as e:
+            print(f"Error occurred while checking long URL existence: {e}")
+            raise

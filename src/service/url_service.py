@@ -1,4 +1,4 @@
-from src.dto.url_response import UrlResponse
+from src.dto.url_response import UrlResponse, Redirect
 from src.entity.url_mapping import UrlMapping
 from src.repository.url_repository import UrlRepository
 from src.util.base_62_encoding import generate_short_code
@@ -22,8 +22,9 @@ class UrlService:
         saved = self.repository.save(url_mapping)
 
         return UrlResponse(
-            long_url=f"{saved.short_code}"
+            short_code=f"https://localhost:8000/{saved.short_code}",
         )
+    
     
     def get_long_url(self, short_code: str) -> UrlResponse:
         try:
@@ -31,4 +32,5 @@ class UrlService:
         except Exception as e:
             raise Exception(f"Error occurred while fetching URL mapping: {e}")
 
-        return UrlResponse(long_url=url_mapping.long_url)
+        return Redirect(long_url=url_mapping.long_url)
+    
