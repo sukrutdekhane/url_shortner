@@ -1,6 +1,7 @@
 services:
   web:
     build: .
+    image: sukrut123/url-shortener
     env_file:
       - .env
     depends_on:
