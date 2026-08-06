@@ -5,11 +5,11 @@ pipeline {
         stage('Check Environment') {
             steps {
                 sh '''
+                    export PATH="/var/lib/jenkins/.local/bin:$PATH"
                     whoami
                     pwd
                     python3 --version
                     pip3 --version
-                    which poetry
                     poetry --version
                 '''
             }
