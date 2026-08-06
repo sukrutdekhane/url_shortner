@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "sukrut123/url-shortener"
+        IMAGE_NAME = "sukrutdekhane/url-shortener"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
