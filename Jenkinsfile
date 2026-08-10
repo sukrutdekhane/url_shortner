@@ -1,39 +1,58 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = "sukrutdekhane/url-shortener"
+        IMAGE_TAG = "${BUILD_NUMBER}"
+    }
+
     stages {
+
         stage('Build') {
             steps {
-                echo 'Check poetry version'
-                sh 'poetry --version'
-                sh 'python3 --version'
+                sh 'docker compose build'
             }
         }
-        stage('Deploy') {
+
+        stage('Tag') {
             steps {
-                echo 'Deploying...'
+                sh """
+                docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${IMAGE_TAG}
+                """
+            }
+        }
+
+        stage('Docker Login') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-creds',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASS'
+                    )
+                ]) {
+
+                    sh '''
+                    echo $DOCKER_PASS | docker login \
+                        -u $DOCKER_USER \
+                        --password-stdin
+                    '''
+                }
+            }
+        }
+
+        stage('Push') {
+            steps {
+                sh """
+                docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                docker push ${IMAGE_NAME}:latest
+                """
             }
         }
     }
+    post {
+        always {
+            sh 'docker logout'
+        }
+    }
 }
-
-
-// pipeline {
-//     agent any
-
-//     stages {
-//         stage('Run FastAPI Application') {
-//             steps {
-//                 withCredentials([file(credentialsId: 'dotenv', variable: 'ENV_FILE')]) {
-//                     sh '''
-//                         if [ -f /var/lib/jenkins/workspace/Project-Pipeline/.env ]; then
-//                             rm -f /var/lib/jenkins/workspace/Project-Pipeline/.env
-//                         fi
-//                         cp "$ENV_FILE" .env
-//                         poetry run fastapi dev src/main.py
-//                     '''
-//                 }
-//             }
-//         }
-//     }
-// }
