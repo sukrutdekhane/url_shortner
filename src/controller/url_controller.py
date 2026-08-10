@@ -15,6 +15,7 @@ def shorten_url(request: UrlRequest):
     db = SessionLocal()
 
     try:
+        # Add a code to check whether the URL already exists in the database and return the existing short code if it does.
         repository = UrlRepository(db)
         service = UrlService(repository)
         if not request.long_url.startswith(("http://", "https://")):
