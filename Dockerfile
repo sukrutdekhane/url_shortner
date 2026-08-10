@@ -1,0 +1,13 @@
+FROM python:3.12-alpine
+
+WORKDIR /app
+
+RUN pip3 install poetry
+
+COPY pyproject.toml poetry.lock ./
+
+RUN poetry install --no-root
+
+COPY . .
+
+CMD ["poetry", "run", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
