@@ -26,7 +26,7 @@ class UrlService:
         )
     
     
-    def get_long_url(self, short_code: str) -> UrlResponse:
+    def get_long_url(self, short_code: str) -> Redirect:
         try:
             url_mapping = self.repository.get_url_mapping_by_short_code(short_code)
         except Exception as e:

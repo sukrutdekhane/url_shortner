@@ -24,7 +24,6 @@ def shorten_url(request: UrlRequest):
     finally:
         db.close()
 
-
 @router.get("/{short_code}")
 def redirect_to_long_url(short_code: str):
     db = SessionLocal()
