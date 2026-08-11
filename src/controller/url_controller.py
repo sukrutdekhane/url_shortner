@@ -8,6 +8,7 @@ from fastapi.responses import RedirectResponse
 
 router = APIRouter()
 
+
 @router.post("/urls/shorten")
 def shorten_url(request: UrlRequest):
 
