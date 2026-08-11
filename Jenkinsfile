@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        stage('Docker Tag') {
+        stage('Docker Tag Creation') {
             steps {
                 sh """
                 docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${IMAGE_TAG}
