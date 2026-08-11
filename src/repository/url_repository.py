@@ -1,3 +1,5 @@
+from typing import Optional
+
 from sqlalchemy.orm import Session
 
 from src.entity.url_mapping import UrlMapping
@@ -39,13 +41,17 @@ class UrlRepository:
             print(f"Error occurred while fetching URL mapping: {e}")
             raise
     
-    def check_long_url_exists(self, long_url: str) -> UrlMapping:
+    def check_long_url_exists(self, long_url: str) -> Optional[UrlMapping]:
         try:
             url_mapping = (
                 self.db.query(UrlMapping)
                 .filter(UrlMapping.long_url == long_url)
                 .first()
             )
+            if url_mapping is None:
+                return None
+            
+            url_mapping.click_count += 1
             
             return url_mapping
 
